@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: VanGo-DB
+    container_name: Rodaki-DB
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -13,11 +13,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
-      - vango
+      - Rodaki
 
   backend:
-    build: ./VanGo-Back
-    container_name: VanGo-backend
+    build: ./Rodaki-Back
+    container_name: Rodaki-backend
     restart: always
     depends_on:
       - mysql
@@ -29,26 +29,26 @@ services:
       MINIO_URL: http://minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: bucket-vango
+      MINIO_BUCKET: bucket-Rodaki
     ports:
       - "8080:8080"
     networks:
-      - vango
+      - Rodaki
 
   frontend:
-    build: ./VanGo-Front
-    container_name: VanGo-frontend
+    build: ./Rodaki-Front
+    container_name: Rodaki-frontend
     restart: always
     depends_on:
       - backend
     ports:
       - "${FRONT_PORT}:80"
     networks:
-      - vango
+      - Rodaki
 
   minio:
     image: minio/minio:latest
-    container_name: VanGo-minIO-blog
+    container_name: Rodaki-minIO-blog
     restart: always
     command: server /data --console-address ":9001"
     environment:
@@ -60,9 +60,9 @@ services:
     volumes:
       - minio_data:/data
     networks:
-      - vango
+      - Rodaki
 
-  VanGo-minIO-client:
+  Rodaki-minIO-client:
     image: minio/mc
     depends_on:
       - minio
@@ -70,15 +70,15 @@ services:
       /bin/sh -c "
       sleep 30 &&
       mc alias set local http://minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} &&
-      mc mb --ignore-existing local/bucket-vango &&
-      mc policy set public local/bucket-vango
+      mc mb --ignore-existing local/bucket-Rodaki &&
+      mc policy set public local/bucket-Rodaki
       "
     networks:
-        - vango
+        - Rodaki
 
 volumes:
   mysql_data:
   minio_data:
 
 networks:
-  vango:
+  Rodaki:
