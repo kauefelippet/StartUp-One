@@ -1,4 +1,4 @@
-package com.VanGo.config;
+package com.Rodaki.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

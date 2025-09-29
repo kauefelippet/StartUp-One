@@ -30,6 +30,8 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: bucket-Rodaki
+      JWT_SECRET: ${JWT_SECRET} 
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
     ports:
       - "8080:8080"
     networks:

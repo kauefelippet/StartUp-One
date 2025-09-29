@@ -1,0 +1,30 @@
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150),
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE passageiros (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNIQUE,
+    endereco VARCHAR(255),
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(11,8),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE motoristas (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNIQUE,
+    veiculo VARCHAR(100),
+    placa VARCHAR(20),
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(11,8),
+    capacidade INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
