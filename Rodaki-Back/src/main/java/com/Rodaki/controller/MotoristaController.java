@@ -1,6 +1,7 @@
 package com.Rodaki.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Rodaki.dto.MotoristaDTO;
 import com.Rodaki.entity.Motorista;
 import com.Rodaki.service.MotoristaService;
 
@@ -22,12 +24,17 @@ public class MotoristaController {
     }
 
     @PostMapping
-    public ResponseEntity<Motorista> salvar(@RequestBody Motorista motorista) {
-        return ResponseEntity.ok(motoristaService.salvar(motorista));
+    public ResponseEntity<MotoristaDTO> salvar(@RequestBody Motorista motorista) {
+        Motorista saved = motoristaService.salvar(motorista);
+        return ResponseEntity.ok(new MotoristaDTO(saved));
     }
 
     @GetMapping
-    public ResponseEntity<List<Motorista>> listarTodos() {
-        return ResponseEntity.ok(motoristaService.listarTodos());
+    public ResponseEntity<List<MotoristaDTO>> listarTodos() {
+        List<MotoristaDTO> dtos = motoristaService.listarTodos()
+            .stream()
+            .map(MotoristaDTO::new)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 }
