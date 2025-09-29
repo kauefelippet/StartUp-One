@@ -1,4 +1,4 @@
-package com.VanGo.controller;
+package com.Rodaki.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

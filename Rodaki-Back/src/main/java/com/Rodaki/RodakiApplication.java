@@ -1,13 +1,13 @@
-package com.VanGo;
+package com.Rodaki;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VanGoApplication {
+public class RodakiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VanGoApplication.class, args);
+		SpringApplication.run(RodakiApplication.class, args);
 	}
 
 }
