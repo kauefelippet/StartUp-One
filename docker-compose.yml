@@ -29,7 +29,7 @@ services:
       MINIO_URL: http://minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: bucket-Rodaki
+      MINIO_BUCKET: bucket-rodaki
       JWT_SECRET: ${JWT_SECRET} 
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
     ports:
@@ -72,8 +72,8 @@ services:
       /bin/sh -c "
       sleep 30 &&
       mc alias set local http://minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} &&
-      mc mb --ignore-existing local/bucket-Rodaki &&
-      mc policy set public local/bucket-Rodaki
+      mc mb --ignore-existing local/bucket-rodaki &&
+      mc policy set public local/bucket-rodaki
       "
     networks:
         - Rodaki
